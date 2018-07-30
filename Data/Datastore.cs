@@ -6,30 +6,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace node
+namespace SCC.DataModel
 {
-    public class Datastore :INotifyPropertyChanged
+    public class Datastore
     {
         public Datastore()
         {
             entryList = new BindingList<Entry>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public BindingList<Entry> entryList
-        {
-            get;
-            protected set;
-        }
-
         private readonly SynchronizationContext _context = SynchronizationContext.Current;
+
+        public BindingList<Entry> entryList { get; }
 
         public void Add(Entry entry)
         {
@@ -41,7 +29,22 @@ namespace node
 
         public bool Exists(Entry entry)
         {
-            return entryList.Any((x => (x.DateTime == entry.DateTime) && (x.Guid == entry.Guid)));
+            return entryList.Any((x =>(x.Guid == entry.Guid)));
+        }
+
+        public static IEntry FromByteArray(Guid table, byte[] serialised)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEntry GetEntry(Entry entry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEntry AddEntry(IEntry entry)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SCC.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace node
+namespace SCC.Communication
 {
     public class Datasync
     {
@@ -40,7 +41,7 @@ namespace node
             IPEndPoint e = new IPEndPoint(IPAddress.Any, Port + 1);
             Byte[] receiveBytes = UdpClient.EndReceive(ar, ref e);
 
-            var entry = Entry.FromByteArray(receiveBytes);
+            var entry = new Entry(receiveBytes);
 
             if (!DataStore.Exists(entry))
                 DataStore.Add(entry);
